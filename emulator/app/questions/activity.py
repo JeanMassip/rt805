@@ -37,3 +37,33 @@ def input_new_activity():
     # pprint(answers)
     
     return answers
+
+def input_new_step():
+    questions = [
+        {
+            'type': 'input',
+            'name': 'bar_name',
+            'message': 'Name of the bar: ',
+            'validate': password_validation,
+        },
+    ]
+
+    answers = prompt(questions, style=custom_style_2)
+    # pprint(answers)
+    
+    return answers
+
+def input_new_drink():
+    questions = [
+        {
+            'type': 'input',
+            'name': 'drink_name',
+            'message': 'Name of the consumption: ',
+            'validate': password_validation,
+        },
+    ]
+
+    answers = prompt(questions, style=custom_style_2)
+    # pprint(answers)
+    
+    return answers
