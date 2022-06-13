@@ -1,11 +1,11 @@
 #!/bin/python3.8
 
-# from questions.home import home_question
-from questions.questions import *
-from scenarios.sign import sign_in, sign_up, sign_out
+from questions.sign import sign_question
+from questions.activity import home_question
+from scenarios.sign import sign_in, sign_up, sign_out#, #new_activity
 
-# Home
-answer = home_question()
+# Firt form log or reg
+answer = sign_question()
 
 # Login / Register
 if answer == "Sign in":
@@ -15,14 +15,16 @@ else:
 
 print("Welcome to Barathon app!")
 
-# Activity - home page
-answer = activity_question()
-
 # Launch / visit / exit
 barathon = True
 while barathon:
+    
+    # Activity - home page
+    answer = home_question()
+
     if answer == "Start a new activity":
-        new_activity()
+        # new_activity()
+        print("new activity")
     elif answer == "Visit activities":
         print("visit")
     else:
