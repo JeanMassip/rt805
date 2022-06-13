@@ -9,6 +9,6 @@ def send_post_request(url, payload):
 def send_get_request(url):
     r = requests.get('http://localhost:5000{}'.format(url))
     
-def get_all_activities(url):
+def get_data_request(url):
     r = requests.get('http://localhost:5000{}'.format(url))
     return r.text

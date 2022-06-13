@@ -25,6 +25,17 @@ def build_new_step_xml(activity, barname):
     #dump(tree) -> print out
     return ET.dump(tree)
 
+def build_new_drink_xml(step, drinkname):
+
+    create_drink = ET.Element("Consumption")
+    ET.SubElement(create_drink, "DrinkID").text = drinkname
+    ET.SubElement(create_drink, "StepID").text = str(step)
+
+    tree = ET.ElementTree(create_drink)
+
+    #dump(tree) -> print out
+    return ET.dump(tree)
+
 def parse_to_xml(string):
     if string[1] != "?":
         string = "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + string

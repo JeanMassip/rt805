@@ -35,7 +35,7 @@ def activities():
     else:
         return "method get"
 
-@app.route('/api/user/<id>/activites', methods=['GET', 'POST'])
+@app.route('/api/user/<id>/activities', methods=['GET', 'POST'])
 def idlastactivities(id):
     print('user {}'.format(id))
 
@@ -46,6 +46,20 @@ def idlastactivities(id):
 
 @app.route('/api/steps', methods=['GET', 'POST'])
 def addStep():
+    if request.method == 'POST':
+        return "method post"
+    else:
+        return "method get"
+
+@app.route('/api/activities/<id>/steps', methods=['GET', 'POST'])
+def idLastSteps(id):
+    print('activity {}'.format(id))
+
+    return render_template('id_last_step.html',id=id)
+
+#************************************** consumptions *************************************
+@app.route('/api/consumptions', methods=['GET', 'POST'])
+def addDrink():
     if request.method == 'POST':
         return "method post"
     else:

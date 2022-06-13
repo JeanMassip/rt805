@@ -5,7 +5,8 @@ from scenarios.activity import creation
 from random import randint
 
 #Set a user id
-userId = 5
+session = dict()
+session['user_id'] = 5
 
 # Firt form log or reg
 answer = sign_question()
@@ -26,7 +27,7 @@ while barathon:
     answer = home_question()
 
     if answer == "Start a new activity":
-        creation(userId)
+        creation(session)
     elif answer == "Visit activities":
         print("visit")
     else:
