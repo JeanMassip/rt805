@@ -2,7 +2,8 @@
 
 from questions.sign import sign_question
 from questions.activity import home_question
-from scenarios.sign import sign_in, sign_up, sign_out#, #new_activity
+from scenarios.sign import sign_in, sign_up, sign_out
+from scenarios.activity import new_activity
 
 # Firt form log or reg
 answer = sign_question()
@@ -23,8 +24,7 @@ while barathon:
     answer = home_question()
 
     if answer == "Start a new activity":
-        # new_activity()
-        print("new activity")
+        new_activity()
     elif answer == "Visit activities":
         print("visit")
     else:

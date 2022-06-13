@@ -22,3 +22,18 @@ def home_question():
     # pprint(answers)
     
     return answers['activity']
+
+def input_new_activity():
+    questions = [
+        {
+            'type': 'input',
+            'name': 'name',
+            'message': 'Name of the activity: ',
+            'validate': password_validation,
+        },
+    ]
+
+    answers = prompt(questions, style=custom_style_2)
+    # pprint(answers)
+    
+    return answers

@@ -1,6 +1,6 @@
 #!/bin/python3.8
 
-from functions.xml_building import *
+from functions.xml_building_sign import *
 from functions.request_building import *
 from questions.sign import user_credentials
 

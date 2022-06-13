@@ -14,6 +14,12 @@ pip3 install pyinquirer
 pip3 install requests
 ```
 
+***pytz***
+
+```Python3
+pip3 install pytz
+```
+
 ## Launch application
 
 ```Python3

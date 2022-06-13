@@ -22,3 +22,10 @@ def signOut():
         return "method post"
     else:
         return "method get"
+
+@app.route('/api/activities', methods=['GET', 'POST'])
+def activities():
+    if request.method == 'POST':
+        return "method post"
+    else:
+        return "method get"
