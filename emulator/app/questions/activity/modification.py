@@ -4,13 +4,13 @@ from PyInquirer import prompt, Separator
 from examples import custom_style_2
 from functions.validation import login_validation, password_validation
 
-def select_activity(activities):
+def select_menu(msg, names, return_page):
     
     questions = [
         {
             'type': 'list',
-            'name': 'activity',
-            'message': 'Select an activity:',
+            'name': 'choice',
+            'message': msg,
             'choices': [''
             ]
         },
@@ -18,32 +18,29 @@ def select_activity(activities):
 
     questions[0]['choices'].remove('')
     i=1
-    for act in activities:
-        questions[0]['choices'].append(str(i) + ". " + str(act))
+    for n in names:
+        questions[0]['choices'].append(str(i) + ". " + str(n))
         i+=1
-    questions[0]['choices'].append('Return to Home page')
+    questions[0]['choices'].append(return_page)
 
     answers = prompt(questions, style=custom_style_2)
-    # pprint(answers)
     return answers
 
-def modify_activity_main_question():
+def modify_main_question(fst_opt, scd_opt, thd_opt):
     questions = [
         {
             'type': 'list',
             'name': 'action',
             'message': 'Action:',
             'choices': [
-                'Modify activity',
-                'Modify steps',
-                'Return to the list of activities',
+                fst_opt, scd_opt, thd_opt,
             ]
         },
     ]
     answers = prompt(questions, style=custom_style_2)
     return answers
 
-def modify_activity_action_question():
+def modify_activity_action_menu():
     questions = [
         {
             'type': 'list',
@@ -70,3 +67,5 @@ def new_activity_name_question():
     ]
     answers = prompt(questions, style=custom_style_2)
     return answers['name']
+
+#*********************** Step ************************

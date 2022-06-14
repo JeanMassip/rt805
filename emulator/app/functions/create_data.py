@@ -9,3 +9,13 @@ def create_activity_list(response):
         activity.append(act.findtext("Name"))
     
     return activity
+
+def create_bars_id_list(response):
+    step = list()
+
+    root = parse_to_xml(response)
+    steps = root.findall("Step")
+    for stp in steps:
+        step.append(stp.findtext("BarID"))
+    
+    return step

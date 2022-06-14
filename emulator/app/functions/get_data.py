@@ -1,16 +1,16 @@
 from functions.request_building import get_data_request
 from functions.xml_activity import parse_to_xml
 
-def get_all_activities(session):
-    return get_data_request("/api/user/{}/activities".format(str(session['user_id'])))
+def get_all_activities(user_id):
+    return get_data_request("/api/user/{}/activities".format(str(user_id)))
 
-def get_all_steps(session):
-    return get_data_request("/api/activities/{}/steps".format(str(session['last_activity_id'])))
+def get_all_steps(activity_id):
+    return get_data_request("/api/activities/{}/steps".format(str(activity_id)))
 
 def get_activity_id(session, name):
     id_activity = 0
     
-    response = get_all_activities(session)
+    response = get_all_activities(session['user_id'])
     root = parse_to_xml(response)
 
     activities = root.findall("Activity")
@@ -23,7 +23,7 @@ def get_activity_id(session, name):
 def get_last_id_activity(session):
     last_activity = 0
 
-    response = get_all_activities(session)
+    response = get_all_activities(session['user_id'])
     root = parse_to_xml(response)
 
     activities = root.findall("Activity")
@@ -36,7 +36,7 @@ def get_last_id_activity(session):
 def get_last_id_step(session):
     last_step = 0
 
-    response = get_all_steps(session)
+    response = get_all_steps(session['last_activity_id'])
     root = parse_to_xml(response)
 
     steps = root.findall("Step")
@@ -59,6 +59,18 @@ def get_activity_info(session, activity_id):
     activity_info['user_id'] = root.findtext("UserID")
 
     return activity_info
+
+def get_bars_name(bars_id):
+    bar_list = list()
+    response = get_data_request("/api/bars")
+    root = parse_to_xml(response)
+    bars = root.findall("Bar")
+
+    for b in bars:
+        if b.findtext("ID") in bars_id:
+            bar_list.append(b.findtext("Name"))
+
+    return bar_list
 
 
 

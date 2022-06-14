@@ -40,12 +40,14 @@ def idlastactivities(id):
     print('user {}'.format(id))
     return render_template('id_last_activity.html',id=id)
 
-@app.route('/api/activities/<id>', methods=['GET', 'POST', 'DELETE'])
+@app.route('/api/activities/<id>', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def activityInfo(id):
     if request.method == 'POST':
         return render_template('activity_info.html',id=id)
     elif request.method == 'DELETE':
         return "method DELETE"
+    elif request.method == 'PUT':
+        return "method PUT"
     else:
         return render_template('activity_info.html',id=id)
     
@@ -73,3 +75,8 @@ def addDrink():
         return "method post"
     else:
         return "method get"
+
+#************************************** consumptions *************************************
+@app.route('/api/bars', methods=['GET', 'POST'])
+def barList():
+    return render_template('barList.html')

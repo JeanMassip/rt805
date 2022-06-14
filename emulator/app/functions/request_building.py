@@ -11,6 +11,9 @@ def send_get_request(url):
 
 def send_delete_request(url):
     r = requests.delete('http://localhost:5000{}'.format(url))
+
+def send_put_request(url, payload):
+    r = requests.put('http://localhost:5000{}'.format(url), data=payload)
     
 def get_data_request(url):
     r = requests.get('http://localhost:5000{}'.format(url))
