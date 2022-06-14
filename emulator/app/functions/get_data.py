@@ -49,12 +49,14 @@ def get_last_id_step(session):
 def get_activity_info(session, activity_id):
     activity_info = dict()
 
-    response = get_data_request("/api/activites/{}".format(str(activity_id)))
+    response = get_data_request("/api/activities/{}".format(str(activity_id)))
     root = parse_to_xml(response)
 
+    activity_info['id'] = root.findtext("ID")
     activity_info['name'] = root.findtext("Name")
     activity_info['start_time'] =  root.findtext("StartTime")
     activity_info['end_time'] = root.findtext("EndTime")
+    activity_info['user_id'] = root.findtext("UserID")
 
     return activity_info
 

@@ -1,6 +1,5 @@
 import xml.etree.ElementTree as ET
 
-
 def build_new_activity_xml(name, startTime, endTime, userId):
 
     create_activity = ET.Element("CreateActivity")
@@ -42,3 +41,4 @@ def parse_to_xml(string):
     root = ET.fromstring(string)
 
     return root
+

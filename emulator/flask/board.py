@@ -40,10 +40,15 @@ def idlastactivities(id):
     print('user {}'.format(id))
     return render_template('id_last_activity.html',id=id)
 
-@app.route('/api/activites/<id>', methods=['GET', 'POST'])
+@app.route('/api/activities/<id>', methods=['GET', 'POST', 'DELETE'])
 def activityInfo(id):
-    return render_template('activity_info.html',id=id)
-
+    if request.method == 'POST':
+        return render_template('activity_info.html',id=id)
+    elif request.method == 'DELETE':
+        return "method DELETE"
+    else:
+        return render_template('activity_info.html',id=id)
+    
 
 
 #************************************** steps *************************************

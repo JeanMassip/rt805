@@ -42,3 +42,31 @@ def modify_activity_main_question():
     ]
     answers = prompt(questions, style=custom_style_2)
     return answers
+
+def modify_activity_action_question():
+    questions = [
+        {
+            'type': 'list',
+            'name': 'action',
+            'message': 'Action:',
+            'choices': [
+                'Modify name',
+                'Remove activity',
+                'Return to the activity menu',
+            ]
+        },
+    ]
+    answers = prompt(questions, style=custom_style_2)
+    return answers
+
+def new_activity_name_question():
+    questions = [
+        {
+            'type': 'input',
+            'name': 'name',
+            'message': 'New name of the activity: ',
+            'validate': password_validation,
+        },
+    ]
+    answers = prompt(questions, style=custom_style_2)
+    return answers['name']

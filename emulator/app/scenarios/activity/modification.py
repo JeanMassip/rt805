@@ -1,7 +1,8 @@
 from functions.get_data import get_all_activities, get_activity_id, get_activity_info
 from functions.create_data import create_activity_list
-from questions.activity.modification import select_activity, modify_activity_main_question
-from colorama import Fore, Style
+from questions.activity.modification import *
+from functions.xml_activity import build_new_activity_xml
+from functions.request_building import send_post_request, send_delete_request
 
 def show_activities(session):
     #Get all activities from a specific user
@@ -31,12 +32,18 @@ def modify_activity_menu(session, answers):
 
     #Set action concerning the activity
     answers = modify_activity_main_question()
+    return answers, activity_info
 
-    return answers
+def modify_activity(activity_info):
+    answers = modify_activity_action_question()
 
-# def modify_activity():
-#     answers = modify_activity_second_question()
-
+    if answers['action'] == "Modify name":
+        activity_info['name'] = new_activity_name_question() 
+        activity_modified = build_new_activity_xml(activity_info['name'], activity_info['start_time'], activity_info['end_time'], activity_info['user_id'])
+        send_post_request("/api/activities/{}".format(activity_info['id']),activity_modified)
+    
+    if answers['action'] == "Remove activity":
+        send_delete_request("/api/activities/{}".format(activity_info['id']))
     
 
 def modification(session):
@@ -48,10 +55,12 @@ def modification(session):
         answers = show_activities(session)
         if answers['activity'] != "Return to Home page":
 
-            #Get the action selected concerning the
-            answers = modify_activity_menu(session, answers)
+            #Get the action selected regarding the activity
+            answers, activity_info = modify_activity_menu(session, answers)
             if answers['action'] == "Modify activity":
-                modify_activity()
+                #Modify activity
+                modify_activity(activity_info)
+
             elif answers['action'] == "Modify steps":
                 # modify_step_menu()
                 pass
