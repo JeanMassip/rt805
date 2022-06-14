@@ -45,4 +45,13 @@ public class User {
     public String getPassword() {
         return this.password;
     }
+
+    public List<Activity> getActivities() {
+        return this.activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
 }

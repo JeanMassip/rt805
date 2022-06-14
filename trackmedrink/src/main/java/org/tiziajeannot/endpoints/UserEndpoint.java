@@ -1,5 +1,7 @@
 package org.tiziajeannot.endpoints;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -11,9 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.tiziajeannot.entities.Credentials;
+import org.tiziajeannot.entities.Activity;
 import org.tiziajeannot.entities.User;
 import org.tiziajeannot.repositories.UserRepository;
+import org.tiziajeannot.requests.Credentials;
 
 @Path("users")
 @ApplicationScoped
@@ -46,7 +49,8 @@ public class UserEndpoint {
     public Response GetActivities(@PathParam("id") Long id) {
         try {
             User user = userRepository.findById(id);
-            return Response.ok(user).build();
+            List<Activity> activities = user.getActivities();
+            return Response.ok(activities).build();
         } catch (Exception e) {
            return Response.status(Response.Status.NOT_FOUND).build();
         }

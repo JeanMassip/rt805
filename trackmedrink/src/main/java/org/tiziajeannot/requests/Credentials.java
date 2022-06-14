@@ -1,4 +1,4 @@
-package org.tiziajeannot.entities;
+package org.tiziajeannot.requests;
 
 import java.io.Serializable;
 

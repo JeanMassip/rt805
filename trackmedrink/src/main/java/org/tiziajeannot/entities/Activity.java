@@ -1,5 +1,7 @@
 package org.tiziajeannot.entities;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name = "Activites.findAll", query = "SELECT a FROM Activity a ORDER BY a.id")
@@ -21,6 +24,8 @@ public class Activity {
     private String start_time;
     @Column(name = "end_time")
     private String end_time;
+    @OneToMany(mappedBy = "activity")
+    private List<Step> steps; 
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -56,4 +61,13 @@ public class Activity {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public List<Step> getSteps() {
+        return this.steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
 }
