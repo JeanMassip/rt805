@@ -38,8 +38,12 @@ def activities():
 @app.route('/api/user/<id>/activities', methods=['GET', 'POST'])
 def idlastactivities(id):
     print('user {}'.format(id))
-
     return render_template('id_last_activity.html',id=id)
+
+@app.route('/api/activites/<id>', methods=['GET', 'POST'])
+def activityInfo(id):
+    return render_template('activity_info.html',id=id)
+
 
 
 #************************************** steps *************************************

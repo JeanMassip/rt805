@@ -7,6 +7,19 @@ def get_all_activities(session):
 def get_all_steps(session):
     return get_data_request("/api/activities/{}/steps".format(str(session['last_activity_id'])))
 
+def get_activity_id(session, name):
+    id_activity = 0
+    
+    response = get_all_activities(session)
+    root = parse_to_xml(response)
+
+    activities = root.findall("Activity")
+    for act in activities:
+        if act.findtext('Name') == name:
+            id_activity = int(act.findtext('ID'))
+
+    return id_activity
+
 def get_last_id_activity(session):
     last_activity = 0
 
@@ -33,15 +46,18 @@ def get_last_id_step(session):
 
     return last_step
 
-def create_activity_list(response):
-    activity = list()
+def get_activity_info(session, activity_id):
+    activity_info = dict()
 
+    response = get_data_request("/api/activites/{}".format(str(activity_id)))
     root = parse_to_xml(response)
-    activities = root.findall("Activity")
-    for act in activities:
-        activity.append(act.findtext("Name"))
-    
-    return activity
+
+    activity_info['name'] = root.findtext("Name")
+    activity_info['start_time'] =  root.findtext("StartTime")
+    activity_info['end_time'] = root.findtext("EndTime")
+
+    return activity_info
+
 
 
 

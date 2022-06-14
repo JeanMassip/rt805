@@ -25,4 +25,20 @@ def select_activity(activities):
 
     answers = prompt(questions, style=custom_style_2)
     # pprint(answers)
-    return answers['activity']
+    return answers
+
+def modify_activity_main_question():
+    questions = [
+        {
+            'type': 'list',
+            'name': 'action',
+            'message': 'Action:',
+            'choices': [
+                'Modify activity',
+                'Modify steps',
+                'Return to the list of activities',
+            ]
+        },
+    ]
+    answers = prompt(questions, style=custom_style_2)
+    return answers
