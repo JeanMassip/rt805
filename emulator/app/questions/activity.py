@@ -67,3 +67,22 @@ def input_new_drink():
     # pprint(answers)
     
     return answers
+
+def next_move_question(fist_option, second_option):
+    questions = [
+        {
+            'type': 'list',
+            'name': 'move',
+            'message': 'What\' your next move? ',
+            'choices': [
+                '{}'.format(fist_option),
+                '{}'.format(second_option),
+            ]
+        },
+    ]
+
+    answers = prompt(questions, style=custom_style_2)
+    # pprint(answers)
+    
+    return answers
+

@@ -1,4 +1,4 @@
-from questions.activity import input_new_activity, input_new_step, input_new_drink
+from questions.activity import input_new_activity, input_new_step, input_new_drink, next_move_question
 from functions.xml_activity import build_new_activity_xml, build_new_step_xml, build_new_drink_xml
 from functions.request_building import send_post_request
 from functions.date_time import get_datetime_now
@@ -45,10 +45,29 @@ def new_drink(session):
     send_post_request("/api/consumptions", xml_data)
 
 def creation(session):
+    addStep = True
+    addDrink = True
 
+    #Add new activity
     session['last_activity_id'] = new_activity(session)
-    session['last_step_id'] = new_step(session)
-    new_drink(session)
+
+    #Add new step
+    while addStep:
+        answers = next_move_question("Add a new step", "Finish activity")
+        if answers['move'] == "Add a new step":
+            session['last_step_id'] = new_step(session)
+
+            #Add new drink
+            while addDrink :
+                answers = next_move_question("Add a new drink", "Finish step")
+                if answers['move'] == "Add a new drink":
+                    new_drink(session)
+                else:
+                    addDrink = False
+
+            addDrink = True
+        else:
+            addStep = False
 
 
 

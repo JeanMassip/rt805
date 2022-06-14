@@ -1,7 +1,7 @@
 from questions.sign import sign_question
 from questions.activity import home_question
 from scenarios.sign import sign_in, sign_up, sign_out
-from scenarios.activity import creation
+from scenarios.activity.creation import creation
 from random import randint
 
 #Set a user id
