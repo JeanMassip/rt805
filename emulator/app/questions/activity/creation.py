@@ -73,7 +73,7 @@ def next_move_question(fist_option, second_option):
         {
             'type': 'list',
             'name': 'move',
-            'message': 'What\' your next move? ',
+            'message': 'What\'s your next move? ',
             'choices': [
                 '{}'.format(fist_option),
                 '{}'.format(second_option),

@@ -1,4 +1,4 @@
-from questions.activity import input_new_activity, input_new_step, input_new_drink, next_move_question
+from questions.activity.creation import input_new_activity, input_new_step, input_new_drink, next_move_question
 from functions.xml_activity import build_new_activity_xml, build_new_step_xml, build_new_drink_xml
 from functions.request_building import send_post_request
 from functions.date_time import get_datetime_now
