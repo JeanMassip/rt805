@@ -11,7 +11,7 @@ import javax.ws.rs.WebApplicationException;
 import org.tiziajeannot.entities.Consumption;
 
 @ApplicationScoped
-public class CosumptionRepository {
+public class ConsumptionRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

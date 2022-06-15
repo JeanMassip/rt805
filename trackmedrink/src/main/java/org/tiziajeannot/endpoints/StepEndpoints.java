@@ -35,8 +35,8 @@ public class StepEndpoints {
     @GET
     @Path("/{id}")
     public Response getActivity(@PathParam("id") Long id) {
-        Step activity = stepRepository.findById(id);
-        return Response.ok(activity).build();
+        Step step = stepRepository.findById(id);
+        return Response.ok(step).build();
     }
 
     @GET
