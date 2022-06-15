@@ -68,6 +68,10 @@ def idLastSteps(id):
 
     return render_template('id_last_step.html',id=id)
 
+@app.route('/api/steps/<id>/bar', methods=['GET', 'POST'])
+def bar(id):
+    return render_template('bar.html')
+
 #************************************** consumptions *************************************
 @app.route('/api/consumptions', methods=['GET', 'POST'])
 def addDrink():
@@ -85,3 +89,5 @@ def getDrinkOfaStep(id):
 @app.route('/api/bars', methods=['GET', 'POST'])
 def barList():
     return render_template('barList.html')
+
+

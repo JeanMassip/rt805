@@ -31,9 +31,43 @@ def show_steps(session, activity_info):
     return bar_selected_info
 
 def show_step_info(session, activity_info, bar_info):
-    pass
+
+    #Get step id of the concerned activity - (Request to server)
+    step_id = get_step_id(activity_info, bar_info)
+    
+    #Get all drinks of the step - (Request to server)
+    drinks = get_drinks_info(step_id)
+
+    #Caculation data
+    number_drinks = 0
+    money_spent = 0
+    avr_degree = 0.0
+    for d in drinks:
+        money_spent += int(d['price'])
+        avr_degree += float(d['degree'])
+        number_drinks+=1
+    avr_degree /= number_drinks
+    total_degree = (number_drinks*100*(avr_degree/100)*0.8)/(0.7*75)
+    total_degree = round(total_degree,2)
+
+    #Get location of the bar
+    bar_info['location'] = get_bar_location(step_id)
+
+    print("\n*** " + bar_info['name'] + " ***")
+    print("Location: " + bar_info['location'])
+    print("Drinks: ")
+    i=1
+    for d in drinks:
+        print(" {}. {}".format(i, d['name']))
+        print("\tDegree: {}".format(d['degree']))
+        print("\tPrice: {}".format(d['price']))
+        i+=1
+    print("Money spent: " + str(money_spent))
+    print("Total degree: "+ str(total_degree))
+    print("*****************************\n")
 
 def modify_step(answers):
     bar_name = answers['choice'][3:]
     
     #Get all information about the specfic step
+

@@ -37,3 +37,6 @@ def get_all_bars():
 def get_all_drinks_of_one_step(step_id):
     return get_data_request("/api/steps/{}/consumptions".format(step_id))
 
+def get_bar_info(step_id):
+    return get_data_request("/api/steps/{}/bar".format(step_id))
+

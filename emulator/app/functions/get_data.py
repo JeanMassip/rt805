@@ -59,8 +59,8 @@ def get_bars_info(bars_id):
     bars_list = list()
     response = get_all_bars()
     root = parse_to_xml(response)
-    bars = root.findall("Bar")
 
+    bars = root.findall("Bar")
     for b in bars:
         if b.findtext("ID") in bars_id:
             bar_info = dict()
@@ -123,9 +123,42 @@ def get_money_degree(activity_id):
         drinks = root.findall("Drink")
 
         #Get all Price of each drinks
+        number_drinks = 0
+        avr_degree = 0.0
         for d in drinks:
             money_spent += int(d.findtext("Price"))
-            total_degree += float(d.findtext("Degree"))
+            avr_degree += float(d.findtext("Degree"))
+            number_drinks+=1
 
+    avr_degree /= number_drinks
+    total_degree = (number_drinks*100*(avr_degree/100)*0.8)/(0.7*75)
     return money_spent, round(total_degree,2)
 
+def get_step_id(activity_info, bar_info):
+    step_id = 0
+    response = get_all_steps_of_one_activity(activity_info['id'])
+    root = parse_to_xml(response)
+    steps = root.findall("Step")
+    for s in steps:
+        if s.findtext("BarID") == bar_info['id']:
+            step_id = s.findtext("ID")
+    return step_id
+
+def get_drinks_info(step_id):
+    drink_list = list()
+    response = get_all_drinks_of_one_step(step_id)
+    root = parse_to_xml(response)
+    drinks = root.findall("Drink")
+    for d in drinks:
+        drink_info = dict()
+        drink_info['name'] = d.findtext("Name")
+        drink_info['degree'] = d.findtext("Degree")
+        drink_info['price'] = d.findtext("Price")
+        drink_list.append(drink_info)
+    return drink_list
+
+def get_bar_location(step_id):
+    response = get_bar_info(step_id)
+    root = parse_to_xml(response)
+    position = root.findtext("Position")
+    return str(position)
