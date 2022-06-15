@@ -76,6 +76,11 @@ def addDrink():
     else:
         return "method get"
 
+@app.route('/api/steps/<id>/consumptions', methods=['GET', 'POST'])
+def getDrinkOfaStep(id):
+    return render_template('drinks.html',id=id)
+        
+
 #************************************** consumptions *************************************
 @app.route('/api/bars', methods=['GET', 'POST'])
 def barList():

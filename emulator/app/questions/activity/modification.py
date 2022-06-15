@@ -30,7 +30,7 @@ def modify_main_question(fst_opt, scd_opt, thd_opt):
     questions = [
         {
             'type': 'list',
-            'name': 'action',
+            'name': 'choice',
             'message': 'Action:',
             'choices': [
                 fst_opt, scd_opt, thd_opt,
@@ -54,7 +54,7 @@ def modify_activity_action_menu():
         },
     ]
     answers = prompt(questions, style=custom_style_2)
-    return answers
+    return answers['action']
 
 def new_activity_name_question():
     questions = [

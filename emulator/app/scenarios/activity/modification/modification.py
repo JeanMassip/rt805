@@ -1,5 +1,5 @@
 from .activity import * 
-from .steps import * 
+from .step import * 
 
 def modification(session):
     modificationActivity = True
@@ -7,23 +7,30 @@ def modification(session):
     while modificationActivity:
 
         #Show activities and return actions
-        answers = show_activities(session)
-        if answers['choice'] != "Return to Home page":
+        activity_name = show_activities(session)
+        
+        if activity_name != "Return to Home page":
+            #Show detail of the activity
+            activity_info = show_activity_info(session, activity_name)
 
-            #Get the action selected regarding the activity
-            answers, activity_info = modify_activity_menu(session, answers)
+            #Show action menu and return action
+            choice = show_activities_action()
 
-            #Modify activity
-            if answers['action'] == "Modify activity":
+            if choice == "Modify activity":
                 modify_activity(activity_info)
-            
-            #Modify step
-            elif answers['action'] == "Modify steps":
-                answers = show_steps(session, activity_info)
-                # modify_step_menu()
-                
-            else:
-                pass
 
-        else:
-            modificationActivity = False
+            if choice == "Modify steps":
+                bar_info = show_steps(session, activity_info)
+                show_step_info(session, activity_info, bar_info)
+        #     # #Modify step
+        #     # elif answers['action'] == "Modify steps":
+
+        #     #     answers = show_steps(session, activity_info)
+        #     #     if answers['choice'] != "Return to activity list":
+        #     #         modify_step(answers)
+                
+        #     else:
+        #         pass
+
+        # else:
+        #     modificationActivity = False
