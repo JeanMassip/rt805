@@ -1,5 +1,6 @@
 from .activity import * 
 from .step import * 
+from .drink import *
 
 def modification(session):
     modificationActivity = True
@@ -35,10 +36,12 @@ def modification(session):
                         if choice == "Modify step":
                             modify_step(bar_info, step_id, activity_info['id'])
 
-                        #
                         if choice == "Visit drinks":
-                            pass
+                            drinks = show_drinks(session, step_id)
+                            choice = show_drinks_action()
 
+                            if choice != "Return to step list":
+                                modify_drink(drinks, step_id)
                     else:
                         modificationStep = False
         else:

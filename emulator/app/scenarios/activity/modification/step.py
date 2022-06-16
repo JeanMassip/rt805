@@ -57,18 +57,15 @@ def show_step_info(session, activity_info, bar_info):
     #Get location of the bar
     bar_info['location'] = get_bar_location(step_id)
 
-    print("\n*** " + bar_info['name'] + " ***")
+    print("\n***** " + bar_info['name'] + " *****")
     print("Location: " + bar_info['location'])
-    print("Drinks: ")
     i=1
     for d in drinks:
-        print(" {}. {}".format(i, d['name']))
-        print("\tDegree: {}".format(d['degree']))
-        print("\tPrice: {}".format(d['price']))
         i+=1
+    print("Drinks: "+ str(i))
     print("Money spent: " + str(money_spent))
     print("Total Alcohol: "+ str(total_degree))
-    print("*****************************\n")
+    print("***************************\n")
 
     return step_id
 
@@ -77,7 +74,7 @@ def show_steps_action():
     return answers['choice']
 
 def modify_step(bar_info, step_id, activity_id):
-    action = modify_second_question_step("Remove step", "Return to step list")
+    action = modify_second_question_2("Remove step", "Return to step list")
     # if action == "Modify bar name":        
     #     #Create new bar and send to db
     #     bar_info['name'] = modify_name_question("New name of the bar: ")

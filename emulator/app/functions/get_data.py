@@ -185,3 +185,13 @@ def get_step_info(step_id,activity_id):
             step_info['activity_id'] = s.findtext("ActivityID")
             step_info['bar_id'] = s.findtext("BarID")
     return step_info
+
+def get_drink_id(step_id, drink_name):
+    drink_id = 0
+    response = get_all_drinks_of_one_step(step_id)
+    root = parse_to_xml(response)
+    drinks = root.findall("Drink")
+    for d in drinks:
+        if d.findtext("Name") == drink_name:
+            drink_id = d.findtext("ID")
+    return drink_id

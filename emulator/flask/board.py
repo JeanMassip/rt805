@@ -92,6 +92,6 @@ def barList():
 
 #************************************** bar *************************************
 @app.route('/api/bar', methods=['GET', 'POST'])
-def bar():
+def barCreation():
     return "bar created"
 

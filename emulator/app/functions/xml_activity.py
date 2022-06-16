@@ -33,6 +33,7 @@ def build_new_drink_xml(step, drinkname):
     tree = ET.ElementTree(create_drink)
     return ET.dump(tree)
 
+
 def parse_to_xml(string):
     if string[1] != "?":
         string = "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + string

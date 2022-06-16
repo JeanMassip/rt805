@@ -40,6 +40,20 @@ def modify_main_question(fst_opt, scd_opt, thd_opt):
     answers = prompt(questions, style=custom_style_2)
     return answers
 
+def modify_main_question_2(fst_opt, scd_opt):
+    questions = [
+        {
+            'type': 'list',
+            'name': 'choice',
+            'message': 'Action:',
+            'choices': [
+                fst_opt, scd_opt
+            ]
+        },
+    ]
+    answers = prompt(questions, style=custom_style_2)
+    return answers
+
 def modify_second_question(firstOpt, secondOpt, thirdOpt):
     questions = [
         {
@@ -56,7 +70,7 @@ def modify_second_question(firstOpt, secondOpt, thirdOpt):
     answers = prompt(questions, style=custom_style_2)
     return answers['action']
 
-def modify_second_question_step(firstOpt, secondOpt):
+def modify_second_question_2(firstOpt, secondOpt):
     questions = [
         {
             'type': 'list',
@@ -72,6 +86,7 @@ def modify_second_question_step(firstOpt, secondOpt):
     return answers['action']
 
 
+
 def modify_name_question(msg):
     questions = [
         {
@@ -83,5 +98,3 @@ def modify_name_question(msg):
     ]
     answers = prompt(questions, style=custom_style_2)
     return answers['name']
-
-#*********************** Step ************************
