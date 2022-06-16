@@ -11,7 +11,7 @@ def login_validation(user_input):
 
 def password_validation(user_input):
     valid = False
-    pattern="^[a-zA-Z0-9\-]{5,20}"
+    pattern="^[a-zA-Z0-9 \-]{3,20}"
 
     if re.search(pattern, user_input):
         valid = True

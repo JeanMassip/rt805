@@ -162,3 +162,26 @@ def get_bar_location(step_id):
     root = parse_to_xml(response)
     position = root.findtext("Position")
     return str(position)
+
+def get_bar_id(bar_name):
+    bar_id=0
+    response = get_all_bars()
+    root = parse_to_xml(response)
+    bars = root.findall("Bar")
+    for b in bars:
+        if b.findtext("Name") in bar_name:
+            bar_id = b.findtext("ID")
+    return bar_id
+
+def get_step_info(step_id,activity_id):
+    step_info = dict()
+    response = get_all_steps_of_one_activity(activity_id)
+    root = parse_to_xml(response)
+    steps = root.findall("Step")
+    for s in steps:
+        if s.findtext("ID") == step_id:
+            step_info['name'] = s.findtext("Name")
+            step_info['id'] = s.findtext("ID")
+            step_info['activity_id'] = s.findtext("ActivityID")
+            step_info['bar_id'] = s.findtext("BarID")
+    return step_info

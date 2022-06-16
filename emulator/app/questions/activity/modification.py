@@ -40,28 +40,44 @@ def modify_main_question(fst_opt, scd_opt, thd_opt):
     answers = prompt(questions, style=custom_style_2)
     return answers
 
-def modify_activity_action_menu():
+def modify_second_question(firstOpt, secondOpt, thirdOpt):
     questions = [
         {
             'type': 'list',
             'name': 'action',
             'message': 'Action:',
             'choices': [
-                'Modify name',
-                'Remove activity',
-                'Return to the activity menu',
+                firstOpt,
+                secondOpt,
+                thirdOpt,
             ]
         },
     ]
     answers = prompt(questions, style=custom_style_2)
     return answers['action']
 
-def new_activity_name_question():
+def modify_second_question_step(firstOpt, secondOpt):
+    questions = [
+        {
+            'type': 'list',
+            'name': 'action',
+            'message': 'Action:',
+            'choices': [
+                firstOpt,
+                secondOpt,
+            ]
+        },
+    ]
+    answers = prompt(questions, style=custom_style_2)
+    return answers['action']
+
+
+def modify_name_question(msg):
     questions = [
         {
             'type': 'input',
             'name': 'name',
-            'message': 'New name of the activity: ',
+            'message': msg,
             'validate': password_validation,
         },
     ]

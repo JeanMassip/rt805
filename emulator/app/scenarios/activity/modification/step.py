@@ -1,7 +1,8 @@
 from functions.get_data import *
-from functions.request_building import get_all_steps_of_one_activity
+from functions.request_building import get_all_steps_of_one_activity,send_delete_request
 from functions.create_data import create_bars_id_list
-from questions.activity.modification import select_menu
+from questions.activity.modification import *
+from functions.xml_activity import build_new_bar_xml
 
 def show_steps(session, activity_info):
     # #Get all steps regarding the specific activity - (Request to server)
@@ -20,15 +21,18 @@ def show_steps(session, activity_info):
 
     #Select a step
     answers = select_menu("Select a step: ", bars_names, "Return to activity list")
+    choice = answers['choice']
 
     #Form a couple with the bar name selected and its id
     bar_selected_info = dict()
-    bar_selected_info['name'] = answers['choice'][3:]
-    for bn in bars_info:
-        if bn['name'] == bar_selected_info['name']:
-            bar_selected_info['id'] = bn['id']
+    if choice != "Return to activity list":
+        bar_selected_info['name'] = choice[3:]
+        for bn in bars_info:
+            if bn['name'] == bar_selected_info['name']:
+                bar_selected_info['id'] = bn['id']
+
     
-    return bar_selected_info
+    return bar_selected_info, choice
 
 def show_step_info(session, activity_info, bar_info):
 
@@ -63,11 +67,29 @@ def show_step_info(session, activity_info, bar_info):
         print("\tPrice: {}".format(d['price']))
         i+=1
     print("Money spent: " + str(money_spent))
-    print("Total degree: "+ str(total_degree))
+    print("Total Alcohol: "+ str(total_degree))
     print("*****************************\n")
 
-def modify_step(answers):
-    bar_name = answers['choice'][3:]
-    
-    #Get all information about the specfic step
+    return step_id
 
+def show_steps_action():
+    answers = modify_main_question("Modify step", "Visit drinks", "Return to step list")
+    return answers['choice']
+
+def modify_step(bar_info, step_id, activity_id):
+    action = modify_second_question_step("Remove step", "Return to step list")
+    # if action == "Modify bar name":        
+    #     #Create new bar and send to db
+    #     bar_info['name'] = modify_name_question("New name of the bar: ")
+    #     position = bar_info["location"].split(" ")
+    #     bar_modified = build_new_bar_xml(bar_info['name'], position[0], position[1])
+    #     send_post_request("/api/bar",bar_modified)
+    #     #Get new_bar_id
+    #     bar_id = get_bar_id(bar_info['name'])
+    #     print("Bar id: " +str(bar_id))
+    #     #Get step with old id
+    #     step = get_step_info(step_id, activity_id)
+    #     #Create new step with new id
+        #Change bar id of the step
+    if action == "Remove step":
+        send_delete_request("/api/steps/{}".format(step_id))
