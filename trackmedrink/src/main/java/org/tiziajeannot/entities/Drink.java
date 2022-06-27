@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name = "Drinks.findAll", query = "SELECT d FROM Drink d")
 public class Drink {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +21,9 @@ public class Drink {
     @Column(name = "degree")
     private Float degree;
     @OneToMany(mappedBy = "drink")
-    private List<Price> prices;
+    private transient List<Price> prices;
     @OneToMany(mappedBy = "drink")
-    private List<Consumption> consumptions;
+    private transient List<Consumption> consumptions;
 
     public Long getId() {
         return this.id;

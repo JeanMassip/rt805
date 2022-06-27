@@ -19,8 +19,8 @@ import org.tiziajeannot.repositories.DrinkRepository;
 
 @Path("drinks")
 @ApplicationScoped
-@Produces(MediaType.TEXT_XML)
-@Consumes(MediaType.TEXT_XML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class DrinkEnpoint {
     @Inject DrinkRepository drinkRepository;
 

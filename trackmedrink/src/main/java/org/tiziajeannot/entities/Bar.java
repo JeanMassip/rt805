@@ -24,9 +24,9 @@ public class Bar {
     @Column(name = "position_lat")
     private Float position_lat;
     @OneToMany(mappedBy = "bar")
-    private List<Step> steps;
+    private transient List<Step> steps;
     @OneToMany(mappedBy = "bar")
-    private List<Price> prices;
+    private transient List<Price> prices;
     
 
     public Long getId() {

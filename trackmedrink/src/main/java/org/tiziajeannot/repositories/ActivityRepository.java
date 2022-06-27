@@ -20,7 +20,8 @@ public class ActivityRepository {
     }
 
     public List<Activity> findByUserID(long id) {
-        return entityManager.createQuery("qlString", Activity.class).getResultList();
+        return entityManager.createQuery("SELECT a FROM Activity a WHERE user_id = :id", Activity.class)
+            .setParameter("id", id).getResultList();
     }
 
     public Activity findById(Long id) {

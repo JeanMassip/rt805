@@ -19,8 +19,8 @@ import org.tiziajeannot.repositories.BarRepository;
 
 @Path("bars")
 @ApplicationScoped
-@Produces(MediaType.TEXT_HTML)
-@Consumes(MediaType.TEXT_XML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class BarEndpoint {
     @Inject BarRepository barRepository;
 

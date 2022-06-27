@@ -1,8 +1,8 @@
-package org.tiziajeannot.requests;
+package org.tiziajeannot.requests.Activity;
 
 import java.io.Serializable;
 
-public class ActivityUpdate implements Serializable {
+public class UpdateActivity implements Serializable {
     private String end_time;
 
     public String getEnd_time() {

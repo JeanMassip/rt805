@@ -21,8 +21,8 @@ import org.tiziajeannot.requests.PriceUpdate;
 
 @Path("prices")
 @ApplicationScoped
-@Produces(MediaType.TEXT_XML)
-@Consumes(MediaType.TEXT_XML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class PriceEndpoint {
     @Inject PriceRepository priceRepository;
 

@@ -19,12 +19,12 @@ public class UserRepository {
     private EntityManager entityManager;
 
     public List<User> findAll() {
-        return entityManager.createNamedQuery("Activities.findAll", User.class).getResultList();
+        return entityManager.createNamedQuery("Users.findAll", User.class).getResultList();
     }
 
     public User findByEmail(String email) {
         try {
-            TypedQuery<User> tq = entityManager.createQuery("SELECT u from User WHERE email=?", User.class);
+            TypedQuery<User> tq = entityManager.createQuery("SELECT u from User u WHERE email=?1", User.class);
             User result = tq.setParameter(1, email).getSingleResult();
             return result;
         } catch(NoResultException e) {

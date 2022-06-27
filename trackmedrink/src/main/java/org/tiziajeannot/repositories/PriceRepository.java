@@ -16,7 +16,7 @@ public class PriceRepository {
     private EntityManager entityManager;
 
     public List<Price> findAll() {
-        return entityManager.createNamedQuery("Activities.findAll", Price.class).getResultList();
+        return entityManager.createNamedQuery("Prices.findAll", Price.class).getResultList();
     }
 
     public Price findById(Long id) {

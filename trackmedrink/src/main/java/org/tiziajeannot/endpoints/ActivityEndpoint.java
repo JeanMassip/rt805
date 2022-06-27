@@ -2,7 +2,7 @@ package org.tiziajeannot.endpoints;
 
 import java.util.List;
 
-import javax.ejb.ApplicationException;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,20 +17,35 @@ import javax.ws.rs.core.Response;
 
 import org.tiziajeannot.entities.Activity;
 import org.tiziajeannot.entities.Step;
+import org.tiziajeannot.entities.User;
 import org.tiziajeannot.repositories.ActivityRepository;
-import org.tiziajeannot.requests.ActivityUpdate;
+import org.tiziajeannot.repositories.UserRepository;
+import org.tiziajeannot.requests.Activity.CreateActivity;
+import org.tiziajeannot.requests.Activity.UpdateActivity;
 
 @Path("activities")
-@ApplicationException
-@Produces(MediaType.TEXT_XML)
-@Consumes(MediaType.TEXT_XML)
+@ApplicationScoped
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ActivityEndpoint {
     @Inject ActivityRepository activityRepository;
+    @Inject UserRepository userRepository;
 
     @POST
-    public Response createActivity(Activity activity) {
+    public Response createActivity(CreateActivity request) {
+        Activity activity = new Activity();
+        User user = userRepository.findById(request.getUserID());
+        user.addActivity(activity);
+        activity.setName(request.getName());
+        activity.setStart_time(request.getStart_time());
         activityRepository.createActivity(activity);
         return Response.ok().build();
+    }
+
+    @GET
+    public Response getAll() {
+        List<Activity> activities = activityRepository.findAll();
+        return Response.ok(activities).build(); 
     }
 
     @GET
@@ -54,7 +69,7 @@ public class ActivityEndpoint {
 
     @PUT
     @Path("/{id}")
-    public Response updateActivity(@PathParam("id") Long id, ActivityUpdate update) {
+    public Response updateActivity(@PathParam("id") Long id, UpdateActivity update) {
         activityRepository.updateActivity(id, update.getEnd_time());
         return Response.ok().build();
     }

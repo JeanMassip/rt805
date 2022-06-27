@@ -10,20 +10,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(name = "Setps.findAll", query = "SELECT s FROM Step s")
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "activity_id", referencedColumnName = "id")
     private Activity activity;
     @OneToMany(mappedBy = "step")
-    private List<Consumption> consumptions;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    private transient List<Consumption> consumptions;
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "bar_id", referencedColumnName = "id")
     private Bar bar;
 

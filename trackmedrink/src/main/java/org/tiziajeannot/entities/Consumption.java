@@ -11,18 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "Drinks.findAll", query = "SELECT d FROM Drink d ORDER BY d.id")
+@NamedQuery(name = "Consumptions.findAll", query = "SELECT c FROM Consumption c ORDER BY c.id")
 public class Consumption {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "drink_id", referencedColumnName = "id")
     private Drink drink;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "step_id", referencedColumnName = "id")
-    private Step step;
+    private transient Step step;
 
     public Long getId() {
         return this.id;

@@ -2,7 +2,6 @@ package org.tiziajeannot.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,21 +13,25 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
-@NamedQuery(name = "Activites.findAll", query = "SELECT a FROM Activity a ORDER BY a.id")
+@NamedQuery(name = "Activities.findAll", query = "SELECT a FROM Activity a ORDER BY a.id")
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+    @Column(name = "name")
+    private String name;
     @Column(name = "start_time")
     private String start_time;
     @Column(name = "end_time")
     private String end_time;
     @OneToMany(mappedBy = "activity")
-    private List<Step> steps; 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private transient List<Step> steps; 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    public Activity() {}
 
     public Long getId() {
         return this.id;
@@ -59,8 +62,20 @@ public class Activity {
     }
 
     public void setUser(User user) {
+        if (sameAsFormer(user)) {
+            return ;
+        }
+
         this.user = user;
+        if (user!=null) {
+            user.addActivity(this);
+        }
     }
+
+    private boolean sameAsFormer(User newUser) {
+        return user==null? newUser == null : user.equals(newUser);
+    }
+    
 
     public List<Step> getSteps() {
         return this.steps;
@@ -70,4 +85,11 @@ public class Activity {
         this.steps = steps;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

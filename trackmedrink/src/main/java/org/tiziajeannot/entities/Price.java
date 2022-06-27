@@ -8,18 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "Prices.findAll", query = "SELECT p from Price p")
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "price")
     private Integer price;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "drink_id", referencedColumnName = "id")
     private Drink drink;
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "bar_id", referencedColumnName = "id")
     private Bar bar;
 

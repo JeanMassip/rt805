@@ -21,8 +21,8 @@ import org.tiziajeannot.repositories.StepRepository;
 
 @Path("steps")
 @ApplicationScoped
-@Produces(MediaType.TEXT_XML)
-@Consumes(MediaType.TEXT_XML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class StepEndpoints {
     @Inject StepRepository stepRepository;
 
@@ -40,8 +40,8 @@ public class StepEndpoints {
     }
 
     @GET
-    @Path("/{id}/steps")
-    public Response getSteps(@PathParam("id") Long id) {
+    @Path("/{id}/consumptions")
+    public Response getConsumptions(@PathParam("id") Long id) {
         try {
             Step step = stepRepository.findById(id);
             List<Consumption> consumptions = step.getConsumptions();

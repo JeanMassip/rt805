@@ -17,8 +17,8 @@ import org.tiziajeannot.repositories.ConsumptionRepository;
 
 @Path("consumptions")
 @ApplicationScoped
-@Produces(MediaType.TEXT_XML)
-@Consumes(MediaType.TEXT_XML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ConsumptionsEndpoint {
     @Inject ConsumptionRepository consumptionRepository;
 

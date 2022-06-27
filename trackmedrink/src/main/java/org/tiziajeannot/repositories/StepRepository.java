@@ -16,7 +16,7 @@ public class StepRepository {
     private EntityManager entityManager;
 
     public List<Step> findAll() {
-        return entityManager.createNamedQuery("Activities.findAll", Step.class).getResultList();
+        return entityManager.createNamedQuery("Steps.findAll", Step.class).getResultList();
     }
 
     public Step findById(Long id) {
