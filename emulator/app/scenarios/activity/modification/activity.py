@@ -1,59 +1,87 @@
-from functions.get_data import *
-from functions.create_data import create_activity_list
 from questions.activity.modification import *
-from functions.xml_activity import build_new_activity_xml
-from functions.request_building import *
+from functions.end_point_requests import *
+from functions.create_dict import *
 
 def show_activities(session):
+    activity = dict()
+
     #Get all activities from a specific user - (Request to server)
-    response = get_all_activities(session)
-    
-    #Create list of all activities
-    activities = create_activity_list(response)
+    activities = get_all_activities_by_user(session['user_id'])
     
     #Select an activity within the list
-    answers = select_menu("Select an activity", activities, "Return to Home page")
-    if answers['choice'] != "Return to Home page":
-        answers['choice'] = answers['choice'][3:]
-    return answers['choice']
+    activity_names = list()
+    for a in activities:
+        activity_names.append(a['name'])
 
-def show_activity_info(session, activity_name):
+    choice = select_menu("Select an activity", activity_names, "Return to Home page")
+    if choice != "Return to Home page":
+        activity['name'] = choice[3:]
+    
+        #Gather other information about the activity selected 
+        for a in activities:
+            if a['name'] == activity['name']:
+                activity['id'] = a['id']
+                activity['start_time'] = a['start_time']
+                activity['end_time'] = a['end_time']
+                activity['user_id'] = a['user_id']
 
-    #Get ID of the specific activity - (Request to server)
-    activity_id = get_activity_id(session, activity_name)
+    return activity, choice
 
-    #Get INFO of the activity with the specific ID - (Request to server)
-    activity_info = get_activity_info(session, activity_id)
 
-    #Get number of steps - (Request to server)
-    activity_info['number_step'] = get_number_step(activity_id)
 
-    #Get total money spent and the total degree - (Request to server)
-    activity_info['money_spent'], activity_info['total_degree'] = get_money_degree(activity_id)
+def show_activity_info(session, activity):
+    total_step = 0
+    total_money = 0
+    total_degree = 0
+    total_consumption = 0
+
+    #Get all steps regardin activity id - (Request to server)
+    steps = get_all_steps_by_activity(activity['id'])
+    
+    #Get total steps + total money + total degree
+    for s in steps:
+
+        #Get total step
+        total_step+=1
+
+        #Get total money + total degree
+        consumptions = get_all_consumptions_by_step(s['id'])
+        for c in consumptions:
+            total_consumption +=1 
+            total_money += c['price']
+            total_degree += c['degree']
+
+    #Update degree
+    activity['total_step'] = total_step
+    activity['total_money'] = total_money
+    activity['total_consumption'] = total_consumption
+    activity['total_degree'] = round(((25*total_consumption)*((total_degree/total_consumption)/100)*0.80)/(0.7*75),2)
 
     #Print activity selected with other data
     print("\n*** Activity ***")
-    print("Name: " + activity_info['name'])
-    print("Started on: " + activity_info['start_time'])
-    print("Ended on: " + activity_info['end_time'])
-    print("Number of steps: " + str(activity_info['number_step']))
-    print("Money spent: " + str(activity_info['money_spent']))
-    print("Total Alcohol: " + str(activity_info['total_degree']))
+    print("Name: " + activity['name'])
+    print("Started on: " + activity['start_time'])
+    print("Ended on: " + activity['end_time'])
+    print("Number of steps: " + str(activity['total_step']))
+    print("Money spent: " + str(activity['total_money']))
+    print("Total Alcohol: " + str(activity['total_degree']))
     print("*****************\n")
     
-    return activity_info
+    return activity
 
 def show_activities_action():
     answers = modify_main_question("Modify activity", "Visit steps", "Return to activity list")
     return answers['choice']
 
-def modify_activity(activity_info):
+def modify_activity(activity):
     action = modify_second_question("Modify name", "Remove activity", "Return to activity list")
     if action == "Modify name":
-        activity_info['name'] = modify_name_question("New name of the activity: ") 
-        activity_modified = build_new_activity_xml(activity_info['name'], activity_info['start_time'], activity_info['end_time'], activity_info['user_id'])
-        send_put_request("/api/activities/{}".format(activity_info['id']),activity_modified)
-    
+        activity['name'] = modify_name_question("New name of the activity: ") 
+        payload = dict_create_activity(activity['name'], activity['start_time'], activity['end_time'], activity['user_id'])
+        modify_activity_request(activity['id'], payload)
+
     if action == "Remove activity":
-        send_delete_request("/api/activities/{}".format(activity_info['id']))
+        remove_activity(activity['id'])
+        
+    return activity
     

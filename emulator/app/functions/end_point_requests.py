@@ -24,7 +24,7 @@ def get_activity_data_by_activity(activity_id):
 def get_all_steps_by_activity(activity_id):
     return send_get_request("/api/activities/{}/steps".format(activity_id))
 
-def modify_activity(activity_id, payload):
+def modify_activity_request(activity_id, payload):
     send_put_request("/api/activities/{}".format(activity_id), payload)
 
 def remove_activity(activity_id):
@@ -44,7 +44,7 @@ def get_bar_data_by_step(step_id):
     return send_get_request("/api/steps/{}/bar".format(step_id))
 
 def remove_step(step_id):
-    send_delete_request("/api/activities/{}".format(activity_id))
+    send_delete_request("/api/activities/{}".format(step_id))
 
 #*** Consumptions **
 def create_consumption(payload):

@@ -16,6 +16,7 @@ def new_activity(session):
 
     #Get the ID of the activity 
     activities = get_all_activities_by_user(session['user_id'])
+    activity['id'] = 77
     for a in activities:
         if a['name'] == activity['name']:
             activity['id'] = a['id']

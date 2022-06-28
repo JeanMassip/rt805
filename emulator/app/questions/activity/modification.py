@@ -24,7 +24,7 @@ def select_menu(msg, names, return_page):
     questions[0]['choices'].append(return_page)
 
     answers = prompt(questions, style=custom_style_2)
-    return answers
+    return answers['choice']
 
 def modify_main_question(fst_opt, scd_opt, thd_opt):
     questions = [

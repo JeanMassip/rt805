@@ -6,18 +6,17 @@ def modification(session):
     modificationActivity = True
     
     while modificationActivity:
-
         #Show activities and return actions
-        activity_name = show_activities(session)
+        activity,choice = show_activities(session)
 
         #Show activities details and return action
-        if activity_name != "Return to Home page":
-            activity_info = show_activity_info(session, activity_name)
+        if choice != "Return to Home page":
+            activity = show_activity_info(session, activity)
             choice = show_activities_action()
 
             #Modify activity
             if choice == "Modify activity":
-                modify_activity(activity_info)
+                activity = modify_activity(activity)
 
             #Visit steps
             if choice == "Visit steps":
@@ -25,23 +24,23 @@ def modification(session):
                 modificationStep = True
                 while modificationStep:
                     #Show all steps and return action
-                    bar_info, choice = show_steps(session, activity_info)
-                    
-                    #Show step detail and return action
+                    step, choice = show_steps(session, activity)
+
+                    #Show step details and return action
                     if choice != "Return to activity list":
-                        step_id = show_step_info(session, activity_info, bar_info)
+                        step = show_step_info(session, activity, step)
                         choice = show_steps_action()
 
                         #Modify step
                         if choice == "Modify step":
-                            modify_step(bar_info, step_id, activity_info['id'])
+                            modify_step(step)
 
                         if choice == "Visit drinks":
-                            drinks = show_drinks(session, step_id)
+                            consumptions = show_drinks(session, step)
                             choice = show_drinks_action()
 
                             if choice != "Return to step list":
-                                modify_drink(drinks, step_id)
+                                modify_consumption(consumptions, step)
                     else:
                         modificationStep = False
         else:

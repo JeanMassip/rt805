@@ -79,6 +79,10 @@ def getDrinkOfaStep(id):
 def barList():
     return render_template('barList.html')
 
+@app.route('/api/bar/<id>', methods=['GET', 'POST'])
+def barInfo(id):
+    return render_template('bar_info.html', id=id)
+
 @app.route('/api/bar', methods=['GET', 'POST'])
 def barCreation():
     print(request.data)
