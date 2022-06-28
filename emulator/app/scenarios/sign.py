@@ -1,29 +1,26 @@
-#!/bin/python3.8
-
-from functions.xml_sign import *
-from functions.request_building import *
+from functions.create_dict import dict_sign_in, dict_sign_up
+from functions.end_point_requests import sign_in_request, sign_up_request, sign_out_request
 from questions.sign import user_credentials
 
 def sign_in():
     #Get input login & password from user with valdiation
     answers = user_credentials()
        
-    #Build XML -> return none type that could print out
-    xml_data = build_signin_xml(answers['login'], answers['password'])
+    #Create a dict format
+    payload = dict_sign_in(answers['login'], answers['password'])
 
-    #Send XML to web server over the network
-    send_post_request("/api/users/sign-in", xml_data)
+    #Send dict to web server over the network
+    sign_in_request(payload)
 
 def sign_up():
-    #Get input logi & password from user with validation
+    #Get input login & password from user with validation
     answers = user_credentials()
 
-    #Build XML -> return none type that could print out
-    xml_data = build_signup_xml(answers['login'], answers['password'])
+    #Create a dict format
+    payload = dict_sign_up(answers['login'], answers['password'])
 
-    #Send XML to web server over the network
-    send_post_request("/api/users/register", xml_data)
+    #Send dict to web server over the network
+    sign_up_request(payload)
 
 def sign_out():
-    url="/api/users/sign-out"
-    send_get_request(url)
+    sign_out_request()

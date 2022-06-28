@@ -38,20 +38,36 @@ def input_new_activity():
     
     return answers
 
-def input_new_step():
+def select_data_or_write(bars, main_msg, type_msg):
+    questions = [
+        {
+            'type': 'list',
+            'name': 'choice',
+            'message': main_msg,
+            'choices': [''
+            ]
+        },
+    ]
+    questions[0]['choices'].remove('')
+    i=1
+    for b in bars:
+        questions[0]['choices'].append(str(i) + ". " + b['name'])
+        i=i+1
+    questions[0]['choices'].append(type_msg)
+    answers = prompt(questions, style=custom_style_2)
+    return answers['choice']
+
+def input_general(msg):
     questions = [
         {
             'type': 'input',
-            'name': 'bar_name',
-            'message': 'Name of the bar: ',
+            'name': 'name',
+            'message': msg,
             'validate': password_validation,
         },
     ]
-
     answers = prompt(questions, style=custom_style_2)
-    # pprint(answers)
-    
-    return answers
+    return answers['name']
 
 def input_new_drink():
     questions = [

@@ -2,8 +2,7 @@ from questions.sign import sign_question
 from questions.activity.creation import home_question
 from scenarios.sign import sign_in, sign_up, sign_out
 from scenarios.activity.creation.creation import creation
-from scenarios.activity.modification.modification import modification
-from random import randint
+# from scenarios.activity.modification.modification import modification
 
 #Set a user id
 session = dict()
@@ -30,7 +29,8 @@ while barathon:
     if answer == "Start a new activity":
         creation(session)
     elif answer == "Visit activities":
-        modification(session)
+        pass
+        # modification(session)
     else:
         print('See you next time!')
         barathon = False

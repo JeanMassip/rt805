@@ -7,33 +7,25 @@ app = Flask(__name__)
 
 @app.route('/api/users/sign-in', methods=['GET', 'POST'])
 def signIn():
-    if request.method == 'POST':
-        return "method post"
-    else:
-        return "method get"
+    print(request.data)
+    return "OK"
 
 @app.route('/api/users/register', methods=['GET', 'POST'])
 def signUp():
-    if request.method == 'POST':
-        return "method post"
-    else:
-        return "method get"
+    print(request.data)
+    return "OK"
 
 @app.route('/api/users/sign-out', methods=['GET', 'POST'])
 def signOut():
-    if request.method == 'POST':
-        return "method post"
-    else:
-        return "method get"
+    print("GET request")
+    return "OK"
 
 #************************************** Activities *************************************
 
 @app.route('/api/activities', methods=['GET', 'POST'])
 def activities():
-    if request.method == 'POST':
-        return "method post"
-    else:
-        return "method get"
+    print(request.data)
+    return "OK"
 
 @app.route('/api/user/<id>/activities', methods=['GET', 'POST'])
 def idlastactivities(id):
@@ -57,15 +49,12 @@ def activityInfo(id):
 
 @app.route('/api/steps', methods=['GET', 'POST'])
 def addStep():
-    if request.method == 'POST':
-        return "method post"
-    else:
-        return "method get"
+    print(request.data)
+    return "OK"
 
 @app.route('/api/activities/<id>/steps', methods=['GET', 'POST'])
 def idLastSteps(id):
     print('activity {}'.format(id))
-
     return render_template('id_last_step.html',id=id)
 
 @app.route('/api/steps/<id>/bar', methods=['GET', 'POST'])
@@ -85,13 +74,17 @@ def getDrinkOfaStep(id):
     return render_template('drinks.html',id=id)
         
 
-#************************************** consumptions *************************************
+#************************************** bar *************************************
 @app.route('/api/bars', methods=['GET', 'POST'])
 def barList():
     return render_template('barList.html')
 
-#************************************** bar *************************************
 @app.route('/api/bar', methods=['GET', 'POST'])
 def barCreation():
+    print(request.data)
     return "bar created"
 
+#************************************** drink *************************************
+@app.route('/api/drink', methods=['GET', 'POST'])
+def drinkList():
+    return render_template('drinks.html')
