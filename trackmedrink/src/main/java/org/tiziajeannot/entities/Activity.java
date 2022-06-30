@@ -29,7 +29,7 @@ public class Activity {
     private transient List<Step> steps; 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private transient User user;
 
     public Activity() {}
 

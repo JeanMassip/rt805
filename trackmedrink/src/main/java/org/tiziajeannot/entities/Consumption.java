@@ -22,7 +22,7 @@ public class Consumption {
     private Drink drink;
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "step_id", referencedColumnName = "id")
-    private transient Step step;
+    private Step step;
 
     public Long getId() {
         return this.id;
